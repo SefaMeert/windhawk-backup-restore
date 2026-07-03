@@ -40,4 +40,4 @@ The backup tool safely packages the following components into a single zip file:
 ---
 
 ## 📄 License
-This project is open-source and free to use. Feel free to modify and share!
+This project is open-source and free to use.
