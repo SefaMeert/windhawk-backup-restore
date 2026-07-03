@@ -28,4 +28,4 @@ Perfect for migrating your Windhawk setup to a new PC, keeping backups before ma
 ---
 
 ## 📄 License
-This project is open-source and free to use. Feel free to modify and share!
+This project is open-source and free to use.
