@@ -27,5 +27,7 @@ Perfect for migrating your Windhawk setup to a new PC, keeping backups before ma
 
 ---
 
+⚠️ Note on Windows SmartScreen: Since this is an unsigned open-source Batch script, Windows SmartScreen might flag it during the first launch. Click on "More info" and then "Run anyway" to bypass it. You can review the entire source code above to verify its safety.
+
 ## 📄 License
 This project is open-source and free to use.
