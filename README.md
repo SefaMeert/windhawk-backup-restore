@@ -29,12 +29,11 @@ Perfect for migrating your Windhawk setup to a new PC, keeping backups before ma
 
 ## 🛠️ How to Use
 
-1. Download `windhawk_Backup_Restore.bat` from the latest release or repository.
-2. Double-click the file to open the interactive menu.
-3. Choose your operation:
-   * **Press [1]** to create a fresh backup of your active Windhawk settings.
-   * **Press [2]** to restore an existing backup (Make sure `windhawk-config-archive-[date].zip` is in the same folder as the script).
-   * **Press [3]** to safely exit.
+1. Download and run **`windhawk_Backup_Restore.bat`** (It will automatically request Administrator privileges).
+2. Choose your operation from the interactive menu:
+   - Press **[1]** to create a fresh, timestamped backup (`windhawk-backup-[date].zip`) of your active Windhawk settings.
+   - Press **[2]** to view all available backups in the folder and select which one to restore by entering its number.
+   - Press **[3]** to safely exit.
 
 ---
 
