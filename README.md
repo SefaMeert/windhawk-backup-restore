@@ -22,14 +22,14 @@ Perfect for migrating your Windhawk setup to a new PC, keeping backups before ma
 * **All-in-One Execution:** Both backup and restore workflows are bundled into a single, clean command-line menu.
 * **Smart Navigation:** Made a mistake or changed your mind? The script features validation prompts (`[Y]/[N]`) that safely return you to the main menu instead of abruptly closing.
 * **Auto Admin Elevation:** Automatically detects administrator privileges at launch and prompts for UAC elevation just once.
-* **Context Awareness:** Your backup file (`windhawk-config-archive.zip`) is always generated right next to the AIO script.
+* **Context Awareness:** Your backup file (`windhawk-backup_[date].zip`) is always generated right next to the AIO script.
 * **Complete Coverage:** Safely archives compiled mods, custom mod source files, and core registry configurations (`Engine\Mods` & `Engine\ModsWritable`).
 
 ---
 
 ## 🛠️ How to Use
 
-1. Download `windhawk_Backup_Restore_AIO.bat` from the latest release or repository.
+1. Download `windhawk_Backup_Restore.bat` from the latest release or repository.
 2. Double-click the file to open the interactive menu.
 3. Choose your operation:
    * **Press [1]** to create a fresh backup of your active Windhawk settings.
