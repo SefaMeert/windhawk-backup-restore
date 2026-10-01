@@ -1,4 +1,4 @@
-# Windhawk Backup & Restore AIO
+# Windhawk Backup & Restore AIO 🚀
 
 A robust, interactive All-in-One (AIO) Batch script designed to manage your **Windhawk** configurations, active mods, source code, and registry settings through a single, unified interface.
 
@@ -18,7 +18,7 @@ Perfect for migrating your Windhawk setup to a new PC, keeping backups before ma
 
 ## 🛠️ How to Use
 
-1. Download `windhawk_Backup_Restore_AIO.bat` from this repository.
+1. Download `windhawk_Backup_Restore_AIO.bat` from the latest release or repository.
 2. Double-click the file to open the interactive menu.
 3. Choose your operation:
    * **Press [1]** to create a fresh backup of your active Windhawk settings.
@@ -27,7 +27,26 @@ Perfect for migrating your Windhawk setup to a new PC, keeping backups before ma
 
 ---
 
-⚠️ Note on Windows SmartScreen: Since this is an unsigned open-source Batch script, Windows SmartScreen might flag it during the first launch. Click on "More info" and then "Run anyway" to bypass it. You can review the entire source code above to verify its safety.
+## 🇹🇷 Türkçe Açıklama
+
+Windhawk modlarınızı, kodlarınızı, özelleştirmelerinizi ve tüm sistem ayarlarınızı tek bir interaktif menü üzerinden yedeklemenizi ve geri yüklemenizi sağlayan gelişmiş bir AIO (All-in-One) Batch betiğidir.
+
+### Öne Çıkanlar:
+- **Tek Dosyada Tüm İşlemler:** Yedek alma ve geri yükleme süreçlerini tek menüde birleştirir.
+- **Otomatik Yönetici Yetkisi (UAC):** Gerekli izinleri açılışta otomatik olarak talep eder.
+- **Tam Kapsamlı Yedekleme:** Derlenmiş modları, kaynak kodları ve Kayıt Defteri (Registry) yapılandırmalarını güvenle arşivler.
+
+---
+
+⚠️️ **Note on Windows SmartScreen:** Since this is an unsigned open-source Batch script, Windows SmartScreen might flag it during the first launch. Click on "More info" and then "Run anyway" to bypass it. You can review the entire source code to verify its safety.
+
+---
+
+## 🏷️ Keywords & Search Tags
+`windhawk` `windhawk-backup` `windhawk-restore` `windhawk-aio` `windhawk-tool` `windhawk-mod-backup` `windows-modding` `backup-script` `windhawk-settings`
+
+---
 
 ## 📄 License
-This project is open-source and free to use.
+
+This project is open-source and free to use..
