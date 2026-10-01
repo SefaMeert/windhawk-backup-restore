@@ -51,11 +51,6 @@ Windhawk modlarınızı, kodlarınızı, özelleştirmelerinizi ve tüm sistem a
 
 ---
 
-## 🏷️ Keywords & Search Tags
-`windhawk` `windhawk-backup` `windhawk-restore` `windhawk-aio` `windhawk-tool` `windhawk-mod-backup` `windows-modding` `backup-script` `windhawk-settings`
-
----
-
 ## 📄 License
 
 This project is open-source and free to use under the MIT License.
