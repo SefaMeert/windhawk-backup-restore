@@ -45,7 +45,7 @@ Windhawk modlarınızı, kodlarınızı, özelleştirmelerinizi ve tüm sistem a
 ### Öne Çıkanlar:
 - **Tek Dosyada Tüm İşlemler:** Yedek alma ve geri yükleme süreçlerini tek menüde birleştirir.
 - **Otomatik Yönetici Yetkisi (UAC):** Gerekli izinleri açılışta otomatik olarak talep eder.
-- **Tam Kapsamlı Yedekleme:** Modları ve Kayıt Defteri (Registry) yapılandırmalarını güvenle arşivler.
+- **Tam Kapsamlı Yedekleme:** Modları, Kaynak Dosyalarını ve Kayıt Defteri (Registry) yapılandırmalarını güvenle arşivler.
 
 ---
 
