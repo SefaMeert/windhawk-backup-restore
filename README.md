@@ -2,7 +2,7 @@
 
 <br/>
 
-[![Download Latest Release](https://img.shields.io/badge/DOWNLOAD-LATEST_RELEASE-2ea44f?style=for-the-badge&logo=github&logoColor=0078D4)](https://github.com/SefaMeert/windhawk-backup-restore/releases/latest)
+[![Download Latest Release](https://img.shields.io/badge/DOWNLOAD-LATEST_RELEASE-0078D4?style=for-the-badge&logo=github&logoColor=white)](https://github.com/SefaMeert/windhawk-backup-restore/releases/latest)
 
 <br/>
 
