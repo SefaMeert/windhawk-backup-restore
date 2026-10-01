@@ -4,11 +4,10 @@
 
 <br/>
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/SefaMeert/windhawk-backup-restore/blob/main/LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Windows-0078D4.svg?logo=windows&logoColor=white)](https://github.com/SefaMeert/windhawk-backup-restore)
-[![PowerShell](https://img.shields.io/badge/PowerShell-v5.1%2B-5391FE.svg?logo=powershell&logoColor=white)](https://github.com/SefaMeert/windhawk-backup-restore)
 [![Downloads](https://img.shields.io/github/downloads/SefaMeert/windhawk-backup-restore/total?color=44cc11)](https://github.com/SefaMeert/windhawk-backup-restore/releases)
 [![Release](https://img.shields.io/github/v/release/SefaMeert/windhawk-backup-restore?color=007ec6)](https://github.com/SefaMeert/windhawk-backup-restore/releases/latest)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/SefaMeert/windhawk-backup-restore/blob/main/LICENSE)
 
 A robust, interactive All-in-One (AIO) Batch script designed to manage your **Windhawk** configurations, active mods, source code, and registry settings through a single, unified interface.
 
@@ -59,4 +58,4 @@ Windhawk modlarınızı, kodlarınızı, özelleştirmelerinizi ve tüm sistem a
 
 ## 📄 License
 
-This project is open-source and free to use..
+This project is open-source and free to use under the MIT License.
