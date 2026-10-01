@@ -1,5 +1,15 @@
 # Windhawk Backup & Restore AIO 🚀
 
+[![Download Latest Release](https://img.shields.io/badge/DOWNLOAD-LATEST_RELEASE-2ea44f?style=for-the-badge&logo=github&logoColor=white)](https://github.com/SefaMeert/windhawk-backup-restore/releases/latest)
+
+<br/>
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/SefaMeert/windhawk-backup-restore/blob/main/LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Windows-0078D4.svg?logo=windows&logoColor=white)](https://github.com/SefaMeert/windhawk-backup-restore)
+[![PowerShell](https://img.shields.io/badge/PowerShell-v5.1%2B-5391FE.svg?logo=powershell&logoColor=white)](https://github.com/SefaMeert/windhawk-backup-restore)
+[![Downloads](https://img.shields.io/github/downloads/SefaMeert/windhawk-backup-restore/total?color=44cc11)](https://github.com/SefaMeert/windhawk-backup-restore/releases)
+[![Release](https://img.shields.io/github/v/release/SefaMeert/windhawk-backup-restore?color=007ec6)](https://github.com/SefaMeert/windhawk-backup-restore/releases/latest)
+
 A robust, interactive All-in-One (AIO) Batch script designed to manage your **Windhawk** configurations, active mods, source code, and registry settings through a single, unified interface.
 
 Perfect for migrating your Windhawk setup to a new PC, keeping backups before major system updates, or automating your Windows post-installation setup.
