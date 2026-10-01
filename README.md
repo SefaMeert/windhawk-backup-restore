@@ -11,7 +11,7 @@
 [![Release](https://img.shields.io/github/v/release/SefaMeert/windhawk-backup-restore?color=007ec6)](https://github.com/SefaMeert/windhawk-backup-restore/releases/latest)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/SefaMeert/windhawk-backup-restore/blob/main/LICENSE)
 
-A robust, interactive All-in-One (AIO) Batch script designed to manage your **Windhawk** configurations, active mods, source code, and registry settings through a single, unified interface.
+A robust, interactive Batch script designed to manage your **Windhawk** configurations, active mods, source code, and registry settings through a single, unified interface.
 
 Perfect for migrating your Windhawk setup to a new PC, keeping backups before major system updates, or automating your Windows post-installation setup.
 
@@ -33,7 +33,7 @@ Perfect for migrating your Windhawk setup to a new PC, keeping backups before ma
 2. Double-click the file to open the interactive menu.
 3. Choose your operation:
    * **Press [1]** to create a fresh backup of your active Windhawk settings.
-   * **Press [2]** to restore an existing backup (Make sure `windhawk-config-archive.zip` is in the same folder as the script).
+   * **Press [2]** to restore an existing backup (Make sure `windhawk-config-archive_[date].zip` is in the same folder as the script).
    * **Press [3]** to safely exit.
 
 ---
