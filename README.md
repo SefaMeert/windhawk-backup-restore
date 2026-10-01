@@ -7,9 +7,7 @@
 <br/>
 
 [![Release](https://img.shields.io/github/v/release/SefaMeert/windhawk-backup-restore?color=0284C7)](https://github.com/SefaMeert/windhawk-backup-restore/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/SefaMeert/windhawk-backup-restore/total?color=0284C7)](https://github.com/SefaMeert/windhawk-backup-restore/releases)
 [![Platform](https://img.shields.io/badge/platform-Windows-0284C7.svg?logo=windows&logoColor=white)](https://github.com/SefaMeert/windhawk-backup-restore)
-[![Downloads](https://img.shields.io/github/downloads/SefaMeert/windhawk-backup-restore/total?color=0284C7)](https://github.com/SefaMeert/windhawk-backup-restore/releases)
 [![License](https://img.shields.io/badge/license-MIT-0284C7.svg)](https://github.com/SefaMeert/windhawk-backup-restore/blob/main/LICENSE)
 
 A robust, interactive Batch script designed to manage your **Windhawk** configurations, active mods, source code, and registry settings through a single, unified interface.
