@@ -14,8 +14,11 @@ if %errorLevel% == 0 (
 cd /d "%~dp0"
 cls
 color 0F
+echo Version 1.3
+echo https://github.com/SefaMeert/windhawk-backup-restore
+echo.
 echo ========================================================
-echo                WINDHAWK BACKUP & RESTORE
+echo                WINDHAWK BACKUP and RESTORE
 echo ========================================================
 echo.
 echo    [1] Backup Windhawk Configuration
