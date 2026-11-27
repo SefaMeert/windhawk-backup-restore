@@ -41,7 +41,7 @@ Other ProgramData directories, including `ModsWritable` runtime files, caches an
 
 ## How to use
 
-1. Download `windhawk_Backup_Restore_v1.4.0.bat` from the [latest release](https://github.com/SefaMeert/windhawk-backup-restore/releases/latest) and run it. Administrator privileges will be requested automatically. No extraction is required.
+1. Download `windhawk_Backup_Restore_v1.4.1.bat` from the [latest release](https://github.com/SefaMeert/windhawk-backup-restore/releases/latest) and run it. Administrator privileges will be requested automatically. No extraction is required.
 2. Select **1** to create a backup, **2** to restore or **3** to exit.
 3. To restore, place the backup ZIP next to the script and select its number. Select **Y** for a permanent safety ZIP (recommended), **N** to continue with only the temporary rollback snapshot, or **0** to cancel.
 4. If Explorer is locking mod files, save your work and finish file transfers before approving its restart. The taskbar and File Explorer windows may temporarily close. If other processes block the restore, close them normally or follow the safe-mode/restart advice shown by the script.
@@ -54,7 +54,7 @@ Other ProgramData directories, including `ModsWritable` runtime files, caches an
 Run from an administrator PowerShell terminal in the script directory:
 
 ```powershell
-& .\windhawk_Backup_Restore_v1.4.0.bat --self-test
+& .\windhawk_Backup_Restore_v1.4.1.bat --self-test
 ```
 
 The self-test checks file-lock detection and Explorer restart prerequisites without closing Explorer or changing real Windhawk data or registry settings. It does not replace a live restore test.

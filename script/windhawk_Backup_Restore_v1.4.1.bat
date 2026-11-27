@@ -3,11 +3,10 @@ setlocal DisableDelayedExpansion
 set "WH_SCRIPT=%~f0"
 set "WH_TEST_ONLY="
 if /i "%~1"=="--self-test" set "WH_TEST_ONLY=1"
-set "WH_ORIGINAL_SID="
-for /f "delims=" %%S in ('powershell.exe -NoProfile -Command "[Security.Principal.WindowsIdentity]::GetCurrent().User.Value"') do set "WH_ORIGINAL_SID=%%S"
-powershell.exe -NoProfile -Command "$ErrorActionPreference='Stop'; $p=$env:WH_SCRIPT; $sid=$env:WH_ORIGINAL_SID; if (-not $sid) {throw 'Cannot identify current user'}; $admin=([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator); if (-not $admin -and $env:WH_TEST_ONLY -eq '1') {throw 'Run --self-test from an administrator terminal.'}; if (-not $admin) { $arg='/d /s /c ""'+$p+'" --elevated '+$sid+'"'; Start-Process -FilePath $env:ComSpec -ArgumentList $arg -Verb RunAs; exit 0 }; if ('%~1' -eq '--elevated' -and '%~2' -ne $sid) {throw 'Elevation changed the Windows user. Run from the intended administrator account.'}; $raw=[IO.File]::ReadAllText($p); $marker='### POWERSHELL'+' PAYLOAD ###'; $code=$raw.Substring($raw.LastIndexOf($marker)+$marker.Length); & ([scriptblock]::Create($code))"
-if errorlevel 1 pause
-exit /b
+powershell.exe -NoProfile -Command "$ErrorActionPreference='Stop'; $identity=[Security.Principal.WindowsIdentity]::GetCurrent(); $sid=$identity.User.Value; if (-not $sid) {throw 'Cannot identify current user.'}; $admin=([Security.Principal.WindowsPrincipal]$identity).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator); if (-not $admin -and $env:WH_TEST_ONLY -eq '1') {throw 'Run --self-test from an administrator terminal.'}; $p64=[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($env:WH_SCRIPT)); $s64=[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($sid)); $test=if ($env:WH_TEST_ONLY -eq '1') {'1'} else {''}; $runner={ $ErrorActionPreference='Stop'; try { $p=[Text.Encoding]::Unicode.GetString([Convert]::FromBase64String($path64)); $sid=[Text.Encoding]::Unicode.GetString([Convert]::FromBase64String($sid64)); $identity=[Security.Principal.WindowsIdentity]::GetCurrent(); if (-not ([Security.Principal.WindowsPrincipal]$identity).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {throw 'Administrator privileges are required.'}; if ($identity.User.Value -ne $sid) {throw 'Elevation changed the Windows user. Run from the intended administrator account.'}; $env:WH_SCRIPT=$p; $env:WH_ORIGINAL_SID=$sid; $env:WH_TEST_ONLY=$test; $raw=[IO.File]::ReadAllText($p); $marker='### POWERSHELL'+' PAYLOAD ###'; $offset=$raw.LastIndexOf($marker,[StringComparison]::Ordinal); if ($offset -lt 0) {throw 'PowerShell payload not found.'}; & ([scriptblock]::Create($raw.Substring($offset+$marker.Length))) } catch { Write-Host ('ERROR: '+$_.Exception.Message) -ForegroundColor Red; if ($pauseOnError) {[void](Read-Host 'Press Enter to exit')}; exit 1 } }; $prefix='$path64='''+$p64+''';$sid64='''+$s64+''';$test='''+$test+''';$pauseOnError='+$(if ($admin) {'$false'} else {'$true'})+';'; $code=$prefix+$runner.ToString(); if ($admin) {& ([scriptblock]::Create($code))} else { $encoded=[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($code)); $q=[char]34; $ps=Join-Path $PSHOME 'powershell.exe'; $cmd=Join-Path $env:SystemRoot 'System32\cmd.exe'; $argsLine='/d /s /c '+$q+'color 0F '+[char]38+' '+$q+$ps+$q+' -NoProfile -EncodedCommand '+$encoded+$q; Start-Process -FilePath $cmd -ArgumentList $argsLine -WorkingDirectory (Join-Path $env:SystemRoot 'System32') -Verb RunAs; exit 0 }"
+set "WH_EXIT=%errorlevel%"
+if not "%WH_EXIT%"=="0" pause
+exit /b %WH_EXIT%
 ### POWERSHELL PAYLOAD ###
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.IO.Compression
@@ -770,17 +769,42 @@ try {
     Write-Host 'Self-test passed. No Windhawk data, registry configuration or desktop shell was changed.' -ForegroundColor Green
     Write-Host 'A real Explorer-locked restore is still required to validate termination, restart and rollback.'
 }
+# Presentation only: section headings do not alter the operation flow.
+function Show-Section([string]$heading) {
+    $line = '=' * 56
+    $left = [int][Math]::Floor([Math]::Max(0, (56 - $heading.Length) / 2))
+    Write-Host $line
+    Write-Host ((' ' * $left) + $heading)
+    Write-Host $line
+    Write-Host ''
+}
 if ($env:WH_TEST_ONLY -eq '1') {Run-SelfTest; exit 0}
 while ($true) {
     Clear-Host
-    Write-Host 'WINDHAWK BACKUP AND RESTORE v1.4.0' -ForegroundColor Cyan
+    Write-Host 'WINDHAWK BACKUP AND RESTORE v1.4.1' -ForegroundColor Cyan
     Write-Host 'https://github.com/SefaMeert/windhawk-backup-restore'
-    Write-Host "`n[1] Backup Windhawk settings and mods`n[2] Restore Windhawk settings and mods`n[3] Exit`n"
-    $choice=Read-Host 'Choose an option'
+    Write-Host ''
+    Show-Section 'WINDHAWK BACKUP AND RESTORE'
+    Write-Host "   [1] Backup Windhawk Configuration`n`n   [2] Restore Windhawk Configuration`n`n   [3] Exit`n"
+    Write-Host ('=' * 56)
+    Write-Host ''
+    $choice=Read-Host 'Please enter your choice (1-3)'
     try {
         switch ($choice) {
-            '1' {if (Confirm "Create a backup in ${base}?") {Run-Backup} else {continue}}
+            '1' {
+                Clear-Host
+                Show-Section 'WINDHAWK BACKUP'
+                if (Confirm "Create a backup in ${base}?") {
+                    Clear-Host
+                    Show-Section 'BACKUP IN PROGRESS'
+                    Run-Backup
+                    Write-Host ''
+                    Show-Section 'BACKUP COMPLETED'
+                } else {continue}
+            }
             '2' {
+                Clear-Host
+                Show-Section 'SELECT A BACKUP TO RESTORE'
                 $files=@(Get-ChildItem -LiteralPath $base -File | Where-Object {$_.Name -like 'windhawk-backup-*.zip' -or $_.Name -ieq 'windhawk-config-archive.zip'} | Sort-Object LastWriteTime -Descending)
                 if (-not $files.Count) {throw 'No backups found.'}
                 for ($i=0;$i -lt $files.Count;$i++) {
@@ -790,6 +814,8 @@ while ($true) {
                 $n=0; $answer=Read-Host 'Select backup (0 to cancel)'
                 if (-not [int]::TryParse($answer,[ref]$n) -or $n -lt 0 -or $n -gt $files.Count) {throw 'Invalid selection.'}
                 if ($n -eq 0) {continue}
+                Clear-Host
+                Show-Section 'WINDHAWK RESTORE'
                 Write-Host 'WARNING: Current managed mod files and registry settings absent from the selected backup will be removed.' -ForegroundColor Yellow
                 Write-Host "Restore $($files[$n-1].Name)?"
                 Write-Host '[Y] Create a safety ZIP and restore (recommended)'
@@ -798,11 +824,21 @@ while ($true) {
                 $safety=Read-Host 'Choose Y, N or 0'
                 if ($safety -eq '0') {continue}
                 if ($safety -notin @('Y','N')) {throw 'Invalid safety backup choice.'}
+                Clear-Host
+                Show-Section 'RESTORE IN PROGRESS'
                 Run-Restore $files[$n-1].FullName ($safety -ieq 'Y')
+                Write-Host ''
+                Show-Section 'RESTORE COMPLETED'
             }
             '3' {exit 0}
             default {continue}
         }
-    } catch {Write-Host "ERROR: $($_.Exception.Message)" -ForegroundColor Red}
+    } catch {
+        Write-Host ''
+        Show-Section 'ERROR'
+        Write-Host "ERROR: $($_.Exception.Message)" -ForegroundColor Red
+    }
+    Write-Host ''
+    Write-Host ('=' * 56)
     [void](Read-Host 'Press Enter to return to menu')
 }
