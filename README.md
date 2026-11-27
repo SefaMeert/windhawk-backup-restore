@@ -1,4 +1,4 @@
-# Windhawk Backup & Restore 
+# Windhawk Backup & Restore
 
 <br/>
 
@@ -8,49 +8,71 @@
 
 [![Release](https://img.shields.io/github/v/release/SefaMeert/windhawk-backup-restore?color=0284C7)](https://github.com/SefaMeert/windhawk-backup-restore/releases/latest)
 [![Platform](https://img.shields.io/badge/platform-Windows-0284C7.svg?logo=windows&logoColor=white)](https://github.com/SefaMeert/windhawk-backup-restore)
-[![License](https://img.shields.io/badge/license-MIT-0284C7.svg)](https://github.com/SefaMeert/windhawk-backup-restore/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-0284C7.svg)](LICENSE)
 
-A robust, interactive Batch script designed to manage your **Windhawk** configurations, active mods, source code, and registry settings through a single, unified interface.
+A standalone Batch/PowerShell utility for backing up and restoring Windhawk settings, installed mods and mod settings. No additional software is required.
 
-Perfect for migrating your Windhawk setup to a new PC, keeping backups before major system updates, or automating your Windows post-installation setup.
+## Features
 
----
+- Interactive backup and restore menu with automatic administrator elevation.
+- Timestamped ZIP backups saved next to the script; newest modified backup marked **Latest**.
+- SHA-256 manifest and ZIP content verification for newly created backups.
+- Restore replaces managed files and registry settings; unchanged files are preserved.
+- Optional permanent safety ZIP and a temporary rollback snapshot before restore. If rollback fails, the recovery snapshot is retained and its path reported.
+- File-lock detection using Windows Restart Manager. With explicit confirmation, the script can restart a verified desktop Explorer process in the current session. Other applications are not forcibly closed.
+- Compatibility with legacy backup layouts, including v1.3.0. Older archives without a manifest do not have SHA-256 manifest verification.
 
-## 🚀 Features
+## Backup scope
 
-* **All-in-One Execution:** Both backup and restore workflows are bundled into a single, clean command-line menu.
-* **Smart Navigation:** Made a mistake or changed your mind? The script features validation prompts (`[Y]/[N]`) that safely return you to the main menu instead of abruptly closing.
-* **Auto Admin Elevation:** Automatically detects administrator privileges at launch and prompts for UAC elevation just once.
-* **Context Awareness:** Your backup file (`windhawk-backup-[date].zip`) is always generated right next to the AIO script.
-* **Complete Coverage:** Safely archives compiled mods, custom mod source files, and core registry configurations (`Engine\Mods` & `Engine\ModsWritable`).
+| Data | Location |
+| --- | --- |
+| Installed mod files | `%ProgramData%\Windhawk\Engine\Mods` |
+| Mod source files | `%ProgramData%\Windhawk\ModsSource` |
+| Machine configuration and mod settings | `HKLM\SOFTWARE\Windhawk` |
+| User configuration, when present | `HKCU\Software\Windhawk` |
 
----
+Other ProgramData directories, including `ModsWritable` runtime files, caches and logs outside the managed directories, are not backed up or restored. This is not a full Windhawk installation or arbitrary mod data backup.
 
-## 🛠️ How to Use
+## Requirements
 
-1. Download and run **`windhawk_Backup_Restore.bat`** (It will automatically request Administrator privileges).
-2. Choose your operation from the interactive menu:
-   - Press **[1]** to create a fresh, timestamped backup (`windhawk-backup-[date].zip`) of your active Windhawk settings.
-   - Press **[2]** to view all available backups in the folder and select which one to restore by entering its number.
-   - Press **[3]** to safely exit.
+- Windows with Windows PowerShell 5.1 (64-bit PowerShell on 64-bit Windows).
+- A standard installed Windhawk instance using the default ProgramData location and `Windhawk` service. Portable and custom data locations are not supported.
+- Administrator privileges under the intended Windows user account.
 
----
+## How to use
 
-## 🇹🇷 Türkçe Açıklama
+1. Download `windhawk_Backup_Restore_v1.4.0.bat` from the [latest release](https://github.com/SefaMeert/windhawk-backup-restore/releases/latest) and run it. Administrator privileges will be requested automatically. No extraction is required.
+2. Select **1** to create a backup, **2** to restore or **3** to exit.
+3. To restore, place the backup ZIP next to the script and select its number. Select **Y** for a permanent safety ZIP (recommended), **N** to continue with only the temporary rollback snapshot, or **0** to cancel.
+4. If Explorer is locking mod files, save your work and finish file transfers before approving its restart. The taskbar and File Explorer windows may temporarily close. If other processes block the restore, close them normally or follow the safe-mode/restart advice shown by the script.
+5. Restart Windhawk or sign out if necessary.
 
-Windhawk modlarınızı, kodlarınızı, özelleştirmelerinizi ve tüm sistem ayarlarınızı tek bir interaktif menü üzerinden yedeklemenizi ve geri yüklemenizi sağlayan gelişmiş bir AIO (All-in-One) Batch betiğidir.
+**Important:** Restore replaces the managed configuration, including removing managed files and registry entries absent from the selected backup. Keep a separate known-good backup. Use only trusted archives: SHA-256 manifests check integrity, not authenticity. Automatic rollback is best effort, not a guarantee against every failure or interruption.
 
-### Öne Çıkanlar:
-- **Tek Dosyada Tüm İşlemler:** Yedek alma ve geri yükleme süreçlerini tek menüde birleştirir.
-- **Otomatik Yönetici Yetkisi (UAC):** Gerekli izinleri açılışta otomatik olarak talep eder.
-- **Tam Kapsamlı Yedekleme:** Modları, Kaynak Dosyalarını ve Kayıt Defteri (Registry) yapılandırmalarını güvenle arşivler.
+### Diagnostics
 
----
+Run from an administrator PowerShell terminal in the script directory:
 
-⚠️️ **Note on Windows SmartScreen:** Since this is an unsigned open-source Batch script, Windows SmartScreen might flag it during the first launch. Click on "More info" and then "Run anyway" to bypass it. You can review the entire source code to verify its safety.
+```powershell
+& .\windhawk_Backup_Restore_v1.4.0.bat --self-test
+```
 
----
+The self-test checks file-lock detection and Explorer restart prerequisites without closing Explorer or changing real Windhawk data or registry settings. It does not replace a live restore test.
 
-## 📄 License
+## 🇹🇷 Türkçe açıklama
 
-This project is open-source and free to use under the MIT License.
+Windhawk ayarlarını, kurulu modları, mod kaynak kodlarını ve kayıt defterindeki mod ayarlarını tek BAT dosyasıyla yedekleyip geri yükleyebilirsiniz. Geçici çalışma dosyaları ve yönetilen kapsam dışındaki klasörler yedeklenmez. Taşınabilir ve özel veri konumlu kurulumlar desteklenmez.
+
+[Son sürüm](https://github.com/SefaMeert/windhawk-backup-restore/releases/latest) sayfasından BAT dosyasını indirin ve doğrudan çalıştırın. Yönetici yetkisi otomatik olarak istenir; arşivden çıkarma gerekmez.
+
+- **1:** Yedek oluşturur. ZIP dosyası betiğin bulunduğu klasöre kaydedilir ve SHA-256 ile doğrulanır.
+- **2:** Yedek seçerek geri yükler. **Y** kalıcı güvenlik yedeği oluşturur, **N** yalnızca geçici geri alma yedeğiyle devam eder, **0** iptal eder.
+- **3:** Çıkış yapar.
+
+Geri yükleme mevcut yönetilen mod dosyalarını ve kayıt defteri ayarlarını yedekteki duruma getirir. Değişmemiş dosyalara dokunulmaz. Hata durumunda geri alma denenir; başarısız olursa kurtarma yedeği saklanır. Kilitli dosyalar için Windows Gezgini yalnızca onayınızla yeniden başlatılabilir; diğer uygulamalar zorla kapatılmaz. v1.3.0 yedekleri desteklenir, ancak manifest içermeyen eski arşivlerde SHA-256 manifest doğrulaması yapılamaz.
+
+Yalnızca güvenilir yedekleri kullanın ve ayrı bir sağlam yedek saklayın. `--self-test` seçeneği yönetici yetkili PowerShell üzerinden gerçek Windhawk verilerine dokunmadan kilit tespiti tanılamalarını çalıştırır.
+
+## License
+
+This project is released under the [MIT License](LICENSE). It is an independent utility and is not affiliated with the Windhawk project.
